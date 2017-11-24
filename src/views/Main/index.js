@@ -4,6 +4,9 @@ import { View, StatusBar, StyleSheet, AsyncStorage, Animated, Keyboard, Easing, 
 //Styles
 import styles from './styles';
 
+//Modules
+import { FetchRecordings } from '../../modules/fetchRecordings';
+
 //Component
 import DrawerComponent from '../../modules/drawer';
 
@@ -22,7 +25,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function mapStateToProps(state) {
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    recordings: state.userReducer.recordings
   }
 }
 
@@ -69,6 +73,7 @@ class Login extends Component {
     InteractionManager.runAfterInteractions(() => {
           this.setState({interactionsComplete: true});
     });
+    FetchRecordings(this.props);
   }
   openMoview = () => {
     const { navigate } = this.props.navigation;
@@ -179,9 +184,9 @@ class Login extends Component {
                <View style={styles.moviesContainer}>
                 
                 <View style={{flexDirection: 'row'}}>
-                  {this.state.mainImageLoaded && this.state.bgLoaded &&
+                  {this.state.mainImageLoaded && this.state.bgLoaded && this.props.recordings.recorded.length > 0 &&
                   <FlatList
-                    data={this.state.movies}
+                    data={this.props.recordings.recorded}
                     bounces={false}
                     renderItem={({item, index}) => 
                       <View style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`}>
@@ -191,7 +196,7 @@ class Login extends Component {
                             height: Dimensions.get('window').height * 0.35,
                             borderRadius: 10
                           }}
-                          source={require('../../images/movie4.jpeg')}
+                          source={{uri: item.images.poster.widescreen.large}}
                         />
                       </View>}
                     style={styles.planList}

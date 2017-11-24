@@ -14,6 +14,15 @@ export function userProfile(id) {
 			}
 }
 
+export function setUserRecordings(data) {
+        
+            return {
+				type: "SET_USER_RECORDINGS",
+				payload: data
+			}
+}
+
+
 export function setCurrentUser(user) {
         
             return {

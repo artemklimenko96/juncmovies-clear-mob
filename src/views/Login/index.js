@@ -36,8 +36,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      username: 'junction3',
+      password: 'ihyty7bu'
     }
   }
   signup = () => {
@@ -47,12 +47,12 @@ class Login extends Component {
   login = () => {
     const { navigate } = this.props.navigation;
     let data = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     };
     console.log(data);
-    //Auth(data, this.props);
-    navigate('Main');
+    Auth(data, this.props);
+    //navigate('Main');
     Keyboard.dismiss();
   }
   render() {
@@ -71,15 +71,17 @@ class Login extends Component {
                 <TextReact style={{fontFamily: 'knewave', color: '#fff', fontSize: 50}}>JUNCMOVIES</TextReact>
                 <View style={styles.inputContainer}>
                   <TextInput 
-                    placeholder={'Email'}
-                    onChangeText={(text) => this.setState({email: text})}
+                    placeholder={'Username'}
+                    value={this.state.username}
+                    onChangeText={(text) => this.setState({username: text})}
                     underlineColorAndroid='rgba(255,255,255, 0.6)'
-                    style={{color: '#fff', width: 300, marginBottom: 20}} 
+                    style={{color: '#4B4B4B', width: 300, marginBottom: 20}} 
                     placeholderTextColor='#ffffff'
                   />
                   <TextInput 
                     placeholder={'Password'}
                     onChangeText={(text) => this.setState({password: text})}
+                    value={this.state.password}
                     underlineColorAndroid='rgba(255,255,255, 1)'
                     style={{color: '#4B4B4B', width: 300,}}
                     placeholderTextColor='#ffffff'

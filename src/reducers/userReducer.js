@@ -3,6 +3,7 @@ export default function reducer(state={
 		name: '',
 	},
 	token: '',
+	recordings: '',
 	logging: false,
 	logged: false,
 }, action) {
@@ -16,10 +17,16 @@ export default function reducer(state={
 		case "USER_LOGIN_FULFILLED": {
 			return {
 				...state,
-				user: action.payload.user,
+				user: action.payload,
 				token: action.payload.token,
 				logging:false,
 				logged: true,
+			}
+		}
+		case "SET_USER_RECORDINGS": {
+			return {
+				...state,
+				recordings: action.payload
 			}
 		}
 		default:
