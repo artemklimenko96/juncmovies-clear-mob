@@ -72,16 +72,18 @@ class Movie extends Component {
         id: msgs.length,
         text: data
       });
+      if(msgs.length > 10) {
+        msgs.shift();
+      }
       this.setState({
         msg: msgs,
-        message: ''
       });
     });
     
     //this.player.presentFullscreenPlayer()
   }
   sendMsg = () => {
-    if(this.state.message !== '') {
+    if(this.state.message !== '') { 
       console.log(this.state.message);
       // let msgs = this.state.msg;
       // msgs.push({
@@ -92,6 +94,9 @@ class Movie extends Component {
       //   msg: msgs,
       //   message: ''
       // });
+      this.setState({
+        message: ''
+      });
       this.socket.emit('message', this.state.message);
     }
   }
@@ -142,9 +147,9 @@ class Movie extends Component {
               <View></View>
             </TouchableOpacity>
               {this.state.interactionsComplete ?
-                <View style={{width: Dimensions.get('window').width, padding: 10, paddingBottom: 60, height: Dimensions.get('window').height, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                <View style={{width: Dimensions.get('window').width, padding: 10, paddingBottom: 70, height: Dimensions.get('window').height, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
                      {!this.state.hidden && this.state.msg.length > 0 && this.state.msg.map((item, index) => (
-                        <Animatable.View style={{backgroundColor: 'rgba(79,193,233, 0.7)', padding: 10, borderRadius: 15, marginBottom: 5}}>
+                        <Animatable.View style={{backgroundColor: 'rgba(79,193,233,' + 0.05*index + ')', padding: 10, borderRadius: 15, marginBottom: 5}}>
                           <Text style={{color: '#fff'}}>{item.text}</Text> 
                         </Animatable.View>
                      ))}
