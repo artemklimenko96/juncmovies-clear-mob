@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { View, StatusBar, StyleSheet, AsyncStorage, Keyboard, Easing, FlatList, ScrollView, Image, ImageBackground, InteractionManager, Dimensions, TouchableOpacity, TouchableWithoutFeedback, } from 'react-native';
 
+
+import SocketIOClient from 'socket.io-client';
+
+
 //Styles
 import styles from './styles';
 
@@ -19,6 +23,7 @@ import { Title, TextInput, Tile, Button, Text, Caption, View as ViewShoutem, Nav
 import Video from 'react-native-video';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { SERVER } from '../../config/server';
 
 
 
@@ -27,7 +32,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
-    video: state.userReducer.video
+    video: state.userReducer.video,
+    selectedVideo: state.userReducer.selectedVideo
   }
 }
 
@@ -49,6 +55,7 @@ class Movie extends Component {
       hidden: false,
       message: ''
     }
+    this.socket = SocketIOClient(SERVER);
   }
   componentWillUnmount() {
 
@@ -57,19 +64,34 @@ class Movie extends Component {
     InteractionManager.runAfterInteractions(() => {
           this.setState({interactionsComplete: true});
     });
-    //this.player.presentFullscreenPlayer()
-  }
-  sendMsg = () => {
-    if(this.state.message !== '') {
+    this.socket.emit('room', this.props.selectedVideo.programId);
+    this.socket.on('message', (data) => {
       let msgs = this.state.msg;
       msgs.push({
         id: msgs.length,
-        text: this.state.message
+        text: data
       });
       this.setState({
         msg: msgs,
         message: ''
       });
+    });
+    
+    //this.player.presentFullscreenPlayer()
+  }
+  sendMsg = () => {
+    if(this.state.message !== '') {
+      console.log(this.state.message);
+      // let msgs = this.state.msg;
+      // msgs.push({
+      //   id: msgs.length,
+      //   text: this.state.message
+      // });
+      // this.setState({
+      //   msg: msgs,
+      //   message: ''
+      // });
+      this.socket.emit('message', this.state.message);
     }
   }
 
