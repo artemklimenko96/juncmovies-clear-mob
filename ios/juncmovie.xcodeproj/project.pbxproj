@@ -51,7 +51,6 @@
 		6DF6ECEDC3E04A808AE75692 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F13BF198E14F42CFBFEB0E5B /* Zocial.ttf */; };
 		6BC8EF29C88D4FC9B01159E4 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD0F9B61CA0D44198921FE22 /* libBVLinearGradient.a */; };
 		9AE0376B6D7E4FC3BA0A220F /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF8D2EFB969D456D90A86FBC /* libRNShare.a */; };
-		B9CAB3C9FF5B43D0B157C9F0 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7299E2D9072D4694A40D009E /* libRCTVideo.a */; };
 		E51F6FA92CEB471BB79E3937 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75F55362CF1E4DEABD957526 /* rubicon-icon-font.ttf */; };
 		563FCC595553492E83418C3D /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 278FC46C5BA143C8815F985C /* Rubik-Black.ttf */; };
 		002E8D4C34444684AFCB09A4 /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60563FC468FF43EA84C83D1B /* Rubik-BlackItalic.ttf */; };
@@ -301,8 +300,6 @@
 		AD0F9B61CA0D44198921FE22 /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		BD380190E8114183B3FD67A7 /* RNShare.xcodeproj */ = {isa = PBXFileReference; name = "RNShare.xcodeproj"; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		DF8D2EFB969D456D90A86FBC /* libRNShare.a */ = {isa = PBXFileReference; name = "libRNShare.a"; path = "libRNShare.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		BF9B112EF7D04E7BBE099A9F /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; name = "RCTVideo.xcodeproj"; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		7299E2D9072D4694A40D009E /* libRCTVideo.a */ = {isa = PBXFileReference; name = "libRCTVideo.a"; path = "libRCTVideo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		75F55362CF1E4DEABD957526 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/@shoutem/ui/fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		278FC46C5BA143C8815F985C /* Rubik-Black.ttf */ = {isa = PBXFileReference; name = "Rubik-Black.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		60563FC468FF43EA84C83D1B /* Rubik-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Rubik-BlackItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -343,7 +340,6 @@
 				3BDDF0E24C744782A8185DE3 /* libRNVectorIcons.a in Frameworks */,
 				6BC8EF29C88D4FC9B01159E4 /* libBVLinearGradient.a in Frameworks */,
 				9AE0376B6D7E4FC3BA0A220F /* libRNShare.a in Frameworks */,
-				B9CAB3C9FF5B43D0B157C9F0 /* libRCTVideo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,7 +509,6 @@
 				EA336553CA01443783EFFF82 /* RNVectorIcons.xcodeproj */,
 				AFA03D5D4D354E8A93A2E420 /* BVLinearGradient.xcodeproj */,
 				BD380190E8114183B3FD67A7 /* RNShare.xcodeproj */,
-				BF9B112EF7D04E7BBE099A9F /* RCTVideo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1098,10 +1093,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/juncmovie.app/juncmovie";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1129,10 +1120,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/juncmovie.app/juncmovie";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1218,10 +1205,6 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1258,10 +1241,6 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1293,10 +1272,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1321,10 +1296,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;

@@ -132,3 +132,20 @@ export function setMyCurrentStatus(status) {
 				payload: status
 			}
 }
+
+
+export function setVideoUrl(url) {
+        
+            return {
+				type: "SET_VIDEO_URL",
+				payload: url
+			}
+}
+
+export function setSelectedVideo(video) {
+	
+		return {
+			type: "SET_SELECTED_VIDEO",
+			payload: video
+		}
+}

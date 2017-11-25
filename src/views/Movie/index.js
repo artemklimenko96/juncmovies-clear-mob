@@ -4,6 +4,8 @@ import { View, StatusBar, StyleSheet, AsyncStorage, Keyboard, Easing, FlatList, 
 //Styles
 import styles from './styles';
 
+import { FetchVideoUrl } from '../../modules/fetchVideoUrl';
+
 //Component
 import DrawerComponent from '../../modules/drawer';
 
@@ -24,7 +26,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function mapStateToProps(state) {
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    video: state.userReducer.video
   }
 }
 
@@ -54,7 +57,7 @@ class Movie extends Component {
     InteractionManager.runAfterInteractions(() => {
           this.setState({interactionsComplete: true});
     });
-    this.player.presentFullscreenPlayer()
+    //this.player.presentFullscreenPlayer()
   }
   sendMsg = () => {
     if(this.state.message !== '') {
@@ -86,8 +89,11 @@ class Movie extends Component {
                   this.player = ref
                 }}  
                 resizeMode='cover'
-                source={require('../../images/club2.mp4')}
+                source={{uri: this.props.url }}
                 style={styles.backgroundVideo}
+                onLoadStart={()=>console.log('Loadin started!')}    
+                onError={(e)=> console.log(e)}
+                hls={true}
               />
            
                 

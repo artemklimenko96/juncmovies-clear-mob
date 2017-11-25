@@ -10,6 +10,8 @@ import { FetchRecordings } from '../../modules/fetchRecordings';
 //Component
 import DrawerComponent from '../../modules/drawer';
 
+import { FetchVideoUrl } from '../../modules/fetchVideoUrl';
+
 //Redux
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -26,7 +28,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
-    recordings: state.userReducer.recordings
+    recordings: state.userReducer.recordings,
+    selectVideo: state.userReducer.selectVideo
   }
 }
 
@@ -44,28 +47,6 @@ class Login extends Component {
       interactionsComplete: false,
       mainImageLoaded: false,
       bgLoaded:false,
-      movies: [
-        {
-          name: '123',
-          image: '../../images/movie1.jpeg'
-        },
-        {
-          name: '123',
-          image: '../../images/movie2.jpeg'
-        },
-        {
-          name: '123',
-          image: '../../images/movie3.jpeg'
-        },
-        {
-          name: '123',
-          image: '../../images/movie4.jpeg'
-        },
-        {
-          name: '123',
-          image: '../../images/movie5.jpeg'
-        },
-      ]
     }
     this.tabLineOffsetX = new Animated.Value(Dimensions.get('window').width*0.125);
   }
@@ -74,7 +55,17 @@ class Login extends Component {
           this.setState({interactionsComplete: true});
     });
     FetchRecordings(this.props);
+    
   }
+
+
+  selectVideo = (i) => {
+    this.props.setSelectedVideo(this.props.recordings.recorded[i]);
+    FetchVideoUrl(this.props.recordings.recorded[i].programId, this.props);
+    const { navigate } = this.props.navigation;
+    navigate('Movie');
+  }
+
   openMoview = () => {
     const { navigate } = this.props.navigation;
     navigate('Movie');
@@ -189,16 +180,16 @@ class Login extends Component {
                     data={this.props.recordings.recorded}
                     bounces={false}
                     renderItem={({item, index}) => 
-                      <View style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`}>
+                      <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onPress={() => this.selectVideo(index)}>
                         <Image
                           style={{
                             width: Dimensions.get('window').width * 0.4,
                             height: Dimensions.get('window').height * 0.35,
                             borderRadius: 10
                           }}
-                          source={{uri: item.images.poster.widescreen.large}}
+                          source={{uri: item.images.poster.widescreen.xLarge}}
                         />
-                      </View>}
+                      </TouchableOpacity>}
                     style={styles.planList}
                     horizontal={false}
                     numColumns={2}

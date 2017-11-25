@@ -3,9 +3,11 @@ export default function reducer(state={
 		name: '',
 	},
 	token: '',
+	video: '',
 	recordings: '',
 	logging: false,
 	logged: false,
+	selectedVideo: {}
 }, action) {
 	switch (action.type) {
 		case "USER_LOGIN": {
@@ -27,6 +29,18 @@ export default function reducer(state={
 			return {
 				...state,
 				recordings: action.payload
+			}
+		}
+		case "SET_VIDEO_URL": {
+			return {
+				...state,
+				video: action.payload
+			}
+		}
+		case "SET_SELECTED_VIDEO": {
+			return {
+				...state,
+				selectedVideo: action.payload
 			}
 		}
 		default:
