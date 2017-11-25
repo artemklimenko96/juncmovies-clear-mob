@@ -4,6 +4,7 @@ import { View, StatusBar, StyleSheet, AsyncStorage, Keyboard, Easing, FlatList, 
 
 import SocketIOClient from 'socket.io-client';
 
+import * as Animatable from 'react-native-animatable';
 
 //Styles
 import styles from './styles';
@@ -25,7 +26,7 @@ import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SERVER } from '../../config/server';
 
-
+import Spinnerr from 'react-native-spinkit';
 
 
 
@@ -96,6 +97,7 @@ class Movie extends Component {
   }
 
   render() {
+    
     console.log(this.props);
       return (
          
@@ -105,14 +107,21 @@ class Movie extends Component {
               barStyle="light-content"
               hidden={true}
             />
+          <Image blurRadius={2} source={{uri: this.props.selectedVideo.images.poster.widescreen.xLarge}} style={styles.backgroundImage2} />
+          <View  style={[styles.backgroundImage2, {
+            justifyContent: 'center',
+            alignItems: 'center'
+          }]}>
+            <Spinnerr style={styles.spinner} isVisible={true} size={50} type={'Bounce'} color={'#fff'}/> 
+            <Text style={{color: '#fff'}}>Loading...</Text> 
+          </View>
           {this.props.video != '' && 
               <Video
-                repeat
                 ref={(ref) => {
                   this.player = ref
                 }}  
                 resizeMode='cover'
-                source={{uri: this.props.video}}
+                source={{uri: this.props.video, type: 'm3u8', cache: true }}
                 style={styles.backgroundVideo}
                 onLoadStart={()=>console.log('Loadin started!')}    
                 onError={(e)=> console.log(e)}
@@ -135,19 +144,19 @@ class Movie extends Component {
               {this.state.interactionsComplete ?
                 <View style={{width: Dimensions.get('window').width, padding: 10, paddingBottom: 60, height: Dimensions.get('window').height, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
                      {!this.state.hidden && this.state.msg.length > 0 && this.state.msg.map((item, index) => (
-                        <View style={{backgroundColor: 'rgba(79,193,233, 0.7)', padding: 10, borderRadius: 15, marginBottom: 5}}>
+                        <Animatable.View style={{backgroundColor: 'rgba(79,193,233, 0.7)', padding: 10, borderRadius: 15, marginBottom: 5}}>
                           <Text style={{color: '#fff'}}>{item.text}</Text> 
-                        </View>
+                        </Animatable.View>
                      ))}
-                    <View style={{position: 'absolute', flexDirection: 'row', bottom: 0, left: 0, width: Dimensions.get('window').width}}>
+                    <View style={{position: 'absolute', flexDirection: 'row', bottom: 10, left:10, width: Dimensions.get('window').width}}>
                       <View style={{backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: 50, width: Dimensions.get('window').width*0.8, justifyContent: 'center', alignItems: 'center',}}>
                       <TextInput
-                        style={{alignItems: 'flex-start', color: '#fff', justifyContent: 'flex-start', backgroundColor: 'rgba(255,255,255,0)'}}
+                        style={{alignItems: 'flex-start', color: '#fff', justifyContent: 'flex-start', backgroundColor: 'rgba(255,255,255,0)',  width: Dimensions.get('window').width*0.7}}
                         onChangeText={(text) => this.setState({message: text})}
                         value={this.state.message}
                         />
                       </View>
-                      <TouchableOpacity onPress={this.sendMsg} style={{padding: 10}}><Icon name="paper-plane" style={{fontSize: 30, color: '#fff'}} /></TouchableOpacity>
+                      <TouchableOpacity onPress={this.sendMsg} style={{padding: 10, marginTop: 5, backgroundColor: 'transparent'}}><Icon name="paper-plane" style={{fontSize: 30, color: '#fff'}} /></TouchableOpacity>
                     </View>
                 </View>
             : 
