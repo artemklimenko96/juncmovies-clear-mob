@@ -8,6 +8,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#4fc1e9'
   },
+  backgroundImage2: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
   overlay: {
     position: 'absolute',
     top: 0,
@@ -80,7 +88,10 @@ const styles = StyleSheet.create({
   },
   moviesContainer: {
     marginTop: -5,
-    padding: 20,
+    padding: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width,
     paddingTop: 10,
     
     backgroundColor: '#4fc1e9'

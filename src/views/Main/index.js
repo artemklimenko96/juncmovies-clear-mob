@@ -22,7 +22,7 @@ import { Title, TextInput, Tile, Button, Text, Caption, View as ViewShoutem, Nav
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-
+import Spinnerr from 'react-native-spinkit';
 
 
 function mapStateToProps(state) {
@@ -48,7 +48,7 @@ class Login extends Component {
       mainImageLoaded: false,
       bgLoaded:false,
     }
-    this.tabLineOffsetX = new Animated.Value(Dimensions.get('window').width*0.125);
+    this.tabLineOffsetX = new Animated.Value(Dimensions.get('window').width*0.045);
   }
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
@@ -71,11 +71,15 @@ class Login extends Component {
     navigate('Movie');
   }
   onScroll = (e) => {
-    if(e.nativeEvent.contentOffset.x > Dimensions.get('window').width*0.5) {
-      Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.625, }).start();
+    console.log(e.nativeEvent.contentOffset.x+' - - ' + Dimensions.get('window').width);
+    if((e.nativeEvent.contentOffset.x > Dimensions.get('window').width*0.55) && (e.nativeEvent.contentOffset.x < Dimensions.get('window').width*1.55)) {
+      Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.37, }).start();
     }
-    else {
-      Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.125, }).start();
+    if(e.nativeEvent.contentOffset.x > Dimensions.get('window').width*1.55) {
+      Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.7055, }).start();
+    }
+    if(e.nativeEvent.contentOffset.x < Dimensions.get('window').width*0.55) {
+      Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.045, }).start();
     }
   }
   render() {
@@ -143,17 +147,24 @@ class Login extends Component {
                 </View>
           </View>
            : 
-           <View  key={`view_loading`} style={styles.spinnerContainer}>
-             <Spinner />
-           </View>}
+           <View  style={[styles.backgroundImage2, {
+            justifyContent: 'center',
+            alignItems: 'center'
+          }]}>
+            <Spinnerr style={styles.spinner} isVisible={true} size={50} type={'Bounce'} color={'#fff'}/> 
+            <Text style={{color: '#fff'}}>Loading...</Text> 
+          </View>}
            </View>    
            <View>
            <View style={styles.tabContainer}>
                 <View style={styles.tab1}>
-                   <Text style={{color: '#fff'}}>In the air</Text>
+                   <Text style={{color: '#fff', fontSize: 12}}>Discover</Text>
+                </View>
+                <View style={styles.tab1}>
+                   <Text style={{color: '#fff', fontSize: 12}}>Watch now</Text>
                 </View>
                 <View style={styles.tab2}>
-                    <Text style={{color: '#fff'}}>Starting soon</Text>
+                    <Text style={{color: '#fff', fontSize: 12}}>Starting soon</Text>
                 </View>
             </View>
           
@@ -172,6 +183,30 @@ class Login extends Component {
                 scrollEventThrottle={1}
                 onScroll={this.onScroll}
               >
+                              <View style={styles.moviesContainer}>
+                
+                <View style={{flexDirection: 'row'}}>
+                  {this.state.mainImageLoaded && this.state.bgLoaded && this.props.recordings.recorded.length > 0 &&
+                  <FlatList
+                    data={this.props.recordings.recorded}
+                    bounces={false}
+                    renderItem={({item, index}) => 
+                      <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onPress={() => this.selectVideo(index)}>
+                        <Image
+                          style={{
+                            width: Dimensions.get('window').width * 0.4,
+                            height: Dimensions.get('window').height * 0.35,
+                            borderRadius: 10
+                          }}
+                          source={{uri: item.images.poster.widescreen.xLarge}}
+                        />
+                      </TouchableOpacity>}
+                    style={styles.planList}
+                    horizontal={false}
+                    numColumns={2}
+                  />}
+                </View>
+                </View>
                <View style={styles.moviesContainer}>
                 
                 <View style={{flexDirection: 'row'}}>
@@ -199,20 +234,21 @@ class Login extends Component {
                 <View style={styles.moviesContainer}>
                 
                 <View style={{flexDirection: 'row'}}>
-                  {this.state.mainImageLoaded && this.state.bgLoaded &&
+                  {this.state.mainImageLoaded && this.state.bgLoaded && this.props.recordings.recorded.length > 0 &&
                   <FlatList
-                    data={this.state.movies}
+                    data={this.props.recordings.recorded}
+                    bounces={false}
                     renderItem={({item, index}) => 
-                      <View style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`}>
+                      <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onPress={() => this.selectVideo(index)}>
                         <Image
                           style={{
                             width: Dimensions.get('window').width * 0.4,
                             height: Dimensions.get('window').height * 0.35,
                             borderRadius: 10
                           }}
-                          source={require('../../images/movie5.jpeg')}
+                          source={{uri: item.images.poster.widescreen.xLarge}}
                         />
-                      </View>}
+                      </TouchableOpacity>}
                     style={styles.planList}
                     horizontal={false}
                     numColumns={2}

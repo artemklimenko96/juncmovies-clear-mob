@@ -150,7 +150,7 @@ class Movie extends Component {
                 <View style={{width: Dimensions.get('window').width, padding: 10, paddingBottom: 70, height: Dimensions.get('window').height, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
                      {!this.state.hidden && this.state.msg.length > 0 && this.state.msg.map((item, index) => (
                         <Animatable.View style={{backgroundColor: 'rgba(79,193,233,' + 0.05*index + ')', padding: 10, borderRadius: 15, marginBottom: 5}}>
-                          <Text style={{color: '#fff'}}>{item.text}</Text> 
+                          <Text style={{ color: 'rgba(255,255,225,' + 0.1*index + ')',}}>{item.text}</Text> 
                         </Animatable.View>
                      ))}
                     <View style={{position: 'absolute', flexDirection: 'row', bottom: 10, left:10, width: Dimensions.get('window').width}}>
