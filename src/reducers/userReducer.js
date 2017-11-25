@@ -4,7 +4,7 @@ export default function reducer(state={
 	},
 	token: '',
 	video: '',
-	recordings: '',
+	recordings: {recordings: []},
 	logging: false,
 	logged: false,
 	selectedVideo: {}

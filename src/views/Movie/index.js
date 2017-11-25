@@ -96,6 +96,7 @@ class Movie extends Component {
   }
 
   render() {
+    console.log(this.props);
       return (
          
        <View style={styles.container}>
@@ -104,19 +105,20 @@ class Movie extends Component {
               barStyle="light-content"
               hidden={true}
             />
-          
+          {this.props.video != '' && 
               <Video
                 repeat
                 ref={(ref) => {
                   this.player = ref
                 }}  
                 resizeMode='cover'
-                source={{uri: this.props.url }}
+                source={{uri: this.props.video}}
                 style={styles.backgroundVideo}
                 onLoadStart={()=>console.log('Loadin started!')}    
                 onError={(e)=> console.log(e)}
                 hls={true}
               />
+              }
            
                 
            
