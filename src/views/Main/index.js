@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, StatusBar, StyleSheet, AsyncStorage, Animated, Keyboard, Easing, FlatList, ScrollView, Image, ImageBackground, InteractionManager, Dimensions, TouchableOpacity, } from 'react-native';
+import { View, StatusBar, StyleSheet, Share, AsyncStorage, Animated, Keyboard, Easing, FlatList, ScrollView, Image, ImageBackground, InteractionManager, Dimensions, TouchableOpacity, } from 'react-native';
 
 //Styles
 import styles from './styles';
 
+
 //Modules
+
 import { FetchRecordings } from '../../modules/fetchRecordings';
+
+import TimePicker from 'react-native-simple-time-picker';
 
 //Component
 import DrawerComponent from '../../modules/drawer';
@@ -17,8 +21,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../../actions/userAction'
 
+
+
+
 //UI
 import { Title, TextInput, Tile, Button, Text, Caption, View as ViewShoutem, NavigationBar, Divider, Subtitle, Spinner, } from '@shoutem/ui';
+import Modal from 'react-native-modal'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -46,7 +54,11 @@ class Login extends Component {
     this.state = {
       interactionsComplete: false,
       mainImageLoaded: false,
+      visibleModal: false,
       bgLoaded:false,
+      slide: 1,
+      selectedHours: 0,
+      selectedMinutes: 0
     }
     this.tabLineOffsetX = new Animated.Value(Dimensions.get('window').width*0.045);
   }
@@ -70,16 +82,36 @@ class Login extends Component {
     const { navigate } = this.props.navigation;
     navigate('Movie');
   }
+  shareMovie = (i) => {
+    console.log(this.props.recordings);
+    console.log(i);
+    Share.share({
+      message: 'Wanna  wathc a movie? ' + this.props.recordings.recorded[i].name,
+      url: 'www.juncmovies.com',
+      title: 'Juncmovies'
+    }, {
+      tintColor: '#4fc1e9'
+    })
+  }
   onScroll = (e) => {
     console.log(e.nativeEvent.contentOffset.x+' - - ' + Dimensions.get('window').width);
     if((e.nativeEvent.contentOffset.x > Dimensions.get('window').width*0.55) && (e.nativeEvent.contentOffset.x < Dimensions.get('window').width*1.55)) {
       Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.37, }).start();
+      this.setState({
+        slide: 2
+      });
     }
     if(e.nativeEvent.contentOffset.x > Dimensions.get('window').width*1.55) {
       Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.7055, }).start();
+      this.setState({
+        slide: 3
+      });
     }
     if(e.nativeEvent.contentOffset.x < Dimensions.get('window').width*0.55) {
       Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.045, }).start();
+      this.setState({
+        slide: 1
+      });
     }
   }
   render() {
@@ -186,12 +218,14 @@ class Login extends Component {
                               <View style={styles.moviesContainer}>
                 
                 <View style={{flexDirection: 'row'}}>
-                  {this.state.mainImageLoaded && this.state.bgLoaded && this.props.recordings.recorded.length > 0 &&
+                  {this.state.mainImageLoaded && this.state.bgLoaded && this.state.slide == 1 && this.props.recordings.recorded.length > 0 &&
                   <FlatList
                     data={this.props.recordings.recorded}
                     bounces={false}
                     renderItem={({item, index}) => 
-                      <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onPress={() => this.selectVideo(index)}>
+                      <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onLongPress ={()=>{
+                        this.shareMovie(index);
+                     }}>
                         <Image
                           style={{
                             width: Dimensions.get('window').width * 0.4,
@@ -210,7 +244,7 @@ class Login extends Component {
                <View style={styles.moviesContainer}>
                 
                 <View style={{flexDirection: 'row'}}>
-                  {this.state.mainImageLoaded && this.state.bgLoaded && this.props.recordings.recorded.length > 0 &&
+                  {this.state.mainImageLoaded && this.state.bgLoaded && this.state.slide == 2 &&  this.props.recordings.recorded.length > 0 &&
                   <FlatList
                     data={this.props.recordings.recorded}
                     bounces={false}
@@ -234,7 +268,7 @@ class Login extends Component {
                 <View style={styles.moviesContainer}>
                 
                 <View style={{flexDirection: 'row'}}>
-                  {this.state.mainImageLoaded && this.state.bgLoaded && this.props.recordings.recorded.length > 0 &&
+                  {this.state.mainImageLoaded && this.state.bgLoaded && this.state.slide == 3 &&  this.props.recordings.recorded.length > 0 &&
                   <FlatList
                     data={this.props.recordings.recorded}
                     bounces={false}
@@ -257,6 +291,22 @@ class Login extends Component {
                 </View>
                 </ScrollView>
           </ScrollView>
+          <Modal
+            isVisible={false}
+            backdropColor={'#000'}
+            backdropOpacity={0}
+            animationInTiming={1000}
+            animationOutTiming={1000}
+            backdropTransitionInTiming={1000}
+            backdropTransitionOutTiming={1000}
+            animationIn={"bounceIn"}  
+            animationOut={"fadeOut"}  
+
+           >
+            <View style={{ height: Dimensions.get('window').height*0.3, backgroundColor: '#fff', padding: 20, justifyContent: 'center', alignItems: 'center', }}>
+              <Text style={{color: '#4fc1e9'}}>Set up your movie</Text>
+            </View>
+          </Modal>
         </View>
       );
     }
