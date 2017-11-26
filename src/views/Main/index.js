@@ -4,6 +4,8 @@ import { View, StatusBar, StyleSheet, Share, AsyncStorage, Animated, Keyboard, E
 //Styles
 import styles from './styles';
 
+import * as Animatable from 'react-native-animatable';
+
 
 //Modules
 
@@ -83,8 +85,8 @@ class Login extends Component {
     navigate('Movie');
   }
   shareMovie = (i) => {
-    console.log(this.props.recordings);
-    console.log(i);
+    //console.log(this.props.recordings);
+    //console.log(i);
     Share.share({
       message: 'Wanna  wathc a movie? ' + this.props.recordings.recorded[i].name,
       url: 'www.juncmovies.com',
@@ -94,7 +96,7 @@ class Login extends Component {
     })
   }
   onScroll = (e) => {
-    console.log(e.nativeEvent.contentOffset.x+' - - ' + Dimensions.get('window').width);
+    //console.log(e.nativeEvent.contentOffset.x+' - - ' + Dimensions.get('window').width);
     if((e.nativeEvent.contentOffset.x > Dimensions.get('window').width*0.55) && (e.nativeEvent.contentOffset.x < Dimensions.get('window').width*1.55)) {
       Animated.spring(this.tabLineOffsetX, { toValue: Dimensions.get('window').width*0.37, }).start();
       this.setState({
@@ -119,7 +121,7 @@ class Login extends Component {
         drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, backgroundColor: '#fff'},
         main: {paddingLeft: 3},
       }
-      console.log(this.state);
+      //console.log(this.state);
       return (
          
        <View style={styles.container}>
@@ -170,10 +172,13 @@ class Login extends Component {
                     <Text style={{fontSize: 40, color: '#fff', fontFamily: 'knewave'}}>RIGHT NOW</Text>
                     <Text style={{fontSize: 40, color: '#fff', fontFamily: 'Bevan', textDecorationLine: 'underline'}}>Fight Club</Text>
                   </View>
+                  
                   <View styleName="horizontal" style={{marginTop: 50, justifyContent: 'center', alignItems: 'center', width: Dimensions.get('window').width,}}>
+                  <Animatable.View animation="pulse"  iterationCount="infinite"> 
                   <TouchableOpacity onPress={this.openMoview} style={{backgroundColor: '#0a77a0', borderRadius: 40, width: 200, padding: 15, justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={{color: '#fff'}}>JOIN</Text>
                   </TouchableOpacity>
+                  </Animatable.View>
 
                 </View>
                 </View>
@@ -223,6 +228,7 @@ class Login extends Component {
                     data={this.props.recordings.recorded}
                     bounces={false}
                     renderItem={({item, index}) => 
+                    <Animatable.View animation="bounceIn" delay={300+index*100}> 
                       <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onLongPress ={()=>{
                         this.shareMovie(index);
                      }}>
@@ -234,7 +240,7 @@ class Login extends Component {
                           }}
                           source={{uri: item.images.poster.widescreen.xLarge}}
                         />
-                      </TouchableOpacity>}
+                      </TouchableOpacity></Animatable.View>}
                     style={styles.planList}
                     horizontal={false}
                     numColumns={2}
@@ -249,6 +255,7 @@ class Login extends Component {
                     data={this.props.recordings.recorded}
                     bounces={false}
                     renderItem={({item, index}) => 
+                    <Animatable.View animation="bounceIn" delay={300+index*100}> 
                       <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onPress={() => this.selectVideo(index)}>
                         <Image
                           style={{
@@ -258,7 +265,7 @@ class Login extends Component {
                           }}
                           source={{uri: item.images.poster.widescreen.xLarge}}
                         />
-                      </TouchableOpacity>}
+                      </TouchableOpacity></Animatable.View>}
                     style={styles.planList}
                     horizontal={false}
                     numColumns={2}
@@ -273,6 +280,7 @@ class Login extends Component {
                     data={this.props.recordings.recorded}
                     bounces={false}
                     renderItem={({item, index}) => 
+                    <Animatable.View animation="bounceIn" delay={300+index*100}> 
                       <TouchableOpacity style={{margin: 10,  width: Dimensions.get('window').width * 0.4}} key={`moview_${index}`} onPress={() => this.selectVideo(index)}>
                         <Image
                           style={{
@@ -282,7 +290,7 @@ class Login extends Component {
                           }}
                           source={{uri: item.images.poster.widescreen.xLarge}}
                         />
-                      </TouchableOpacity>}
+                      </TouchableOpacity></Animatable.View>}
                     style={styles.planList}
                     horizontal={false}
                     numColumns={2}

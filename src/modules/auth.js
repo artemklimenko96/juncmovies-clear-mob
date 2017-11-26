@@ -16,8 +16,8 @@ import Hash from 'sha256';
 
 
 export const Auth = function(state, props){
-  console.log('loging attempting to log in');
-  console.log(props);
+  //console.log('loging attempting to log in');
+  //console.log(props);
   const { navigate } = props.navigation;
   //navigate('Main')
   fetch(SERVER + '/auth/login', {
@@ -33,7 +33,7 @@ export const Auth = function(state, props){
   })
   .then((response) => response.json())
   .then((res) => {
-    console.log(res);
+    //console.log(res);
     // res = JSON.parse(res); 
     // if (res.status.status === 'success') {
     //   let data = {

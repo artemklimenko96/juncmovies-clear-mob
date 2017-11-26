@@ -50,7 +50,7 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    console.log(data);
+    //console.log(data);
     Auth(data, this.props);
     //navigate('Main');
     Keyboard.dismiss();

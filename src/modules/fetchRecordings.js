@@ -16,8 +16,8 @@ import Hash from 'sha256';
 
 
 export const FetchRecordings = function(props){
-  console.log('loging attempting to fetch recordings');
-  console.log(props);
+  //console.log('loging attempting to fetch recordings');
+  //console.log(props);
   fetch(SERVER_ELISA + '/rest/npvr/recordings/all?v=2&platform={}&appVersion={}&includeMetadata=true', {
       method: 'GET',
       headers: {
@@ -28,7 +28,7 @@ export const FetchRecordings = function(props){
   })
   .then((response) => response.json())
   .then((res) => {
-    console.log(res);
+    //console.log(res);
     props.setUserRecordings(res.recordings);
    })
   .done()

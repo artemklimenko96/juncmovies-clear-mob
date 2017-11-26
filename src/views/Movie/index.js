@@ -84,7 +84,7 @@ class Movie extends Component {
   }
   sendMsg = () => {
     if(this.state.message !== '') { 
-      console.log(this.state.message);
+      //console.log(this.state.message);
       // let msgs = this.state.msg;
       // msgs.push({
       //   id: msgs.length,
@@ -103,7 +103,7 @@ class Movie extends Component {
 
   render() {
     
-    console.log(this.props);
+    //console.log(this.props);
       return (
          
        <View style={styles.container}>
@@ -128,8 +128,8 @@ class Movie extends Component {
                 resizeMode='cover'
                 source={{uri: this.props.video, type: 'm3u8', cache: true }}
                 style={styles.backgroundVideo}
-                onLoadStart={()=>console.log('Loadin started!')}    
-                onError={(e)=> console.log(e)}
+                //onLoadStart={()=>console.log('Loadin started!')}    
+                //onError={(e)=> console.log(e)}
                 hls={true}
               />
               }
